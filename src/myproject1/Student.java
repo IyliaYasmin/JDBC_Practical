@@ -9,12 +9,11 @@ package myproject1;
 			
 			String url = "jdbc:mysql://localhost:3306/db1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			
+			
 			Connection c=DriverManager.getConnection(url,"root","Database2019");
 			
-			Statement s = c.createStatement();
-			
 			// Create a statement to retrieve objects
-			//Statement s = conn.createStatement();        
+			Statement s = c.createStatement();       
 
 			// Retrieve results from the table
 			ResultSet rs = s.executeQuery ("Select * from Student"); 
@@ -23,16 +22,22 @@ package myproject1;
 			ResultSetMetaData rsmd =rs.getMetaData(); 
 			int i =rsmd.getColumnCount( );
 			
+			//Loop to retrieve and print column header
 			for(int j=1; j<=i; j++) { 
-				System.out.print(rsmd.getColumnName(j)+"\t"); 
+				System.out.printf("%-16s", rsmd.getColumnName(j)); 
 				System.out.print(" "); 
 			} 
-
-			// Print records
+			
+			System.out.println("\t");
+			System.out.println("--------------------------------------------------------------------"
+					+ "------------------------------------------------------------------------------");
+			
+			//Loop to retrieve and print records
 			while(rs.next( ) ) { 
+				System.out.print("\n");
 				for(int j=1; j<=i; j++) 
 				{ 
-					System.out.print ( rs.getString( j)+"\t"); 
+					System.out.printf("%-17s", rs.getString(j));
 				}
 			}
 			
